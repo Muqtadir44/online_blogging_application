@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="utf8mb4" collation="utf8mb4_general_ci">19754_abdul_muqtadir</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="attachment" view="standard">
+<left>1801</left>
+<top>744</top>
+<width>342</width>
+<height>197</height>
+<sql_create_table>CREATE TABLE `attachment` (
+  `attachment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `post_id` int(11) DEFAULT NULL,
+  `post_attachment_title` varchar(200) DEFAULT NULL,
+  `post_attachment_path` text DEFAULT NULL,
+  `status` enum('Active','Inactive') DEFAULT 'Active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`attachment_id`),
+  KEY `post_id` (`post_id`),
+  CONSTRAINT `attachment_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`post_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci</sql_create_table>
+</table>
+<table name="blog" view="standard">
+<left>1083</left>
+<top>397</top>
+<width>355</width>
+<height>214</height>
+<sql_create_table>CREATE TABLE `blog` (
+  `blog_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `blog_title` varchar(200) DEFAULT NULL,
+  `blog_summary` text DEFAULT NULL,
+  `post_per_page` int(11) DEFAULT NULL,
+  `blog_background_image` text DEFAULT NULL,
+  `status` enum('Active','Inactive','Delete') DEFAULT 'Active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `udpated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`blog_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `blog_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci</sql_create_table>
+</table>
+<table name="category" view="standard">
+<left>2138</left>
+<top>547</top>
+<width>334</width>
+<height>180</height>
+<sql_create_table>CREATE TABLE `category` (
+  `category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_title` varchar(100) DEFAULT NULL,
+  `category_description` text DEFAULT NULL,
+  `status` enum('Active','Inactive','Delete') DEFAULT 'Active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`category_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci</sql_create_table>
+</table>
+<table name="feedback" view="standard">
+<left>132</left>
+<top>636</top>
+<width>220</width>
+<height>180</height>
+<sql_create_table>CREATE TABLE `feedback` (
+  `feedback_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `full_name` varchar(100) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `feedback` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`feedback_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci</sql_create_table>
+</table>
+<table name="follow" view="standard">
+<left>778</left>
+<top>176</top>
+<width>281</width>
+<height>180</height>
+<sql_create_table>CREATE TABLE `follow` (
+  `follow_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `blog_id` int(11) DEFAULT NULL,
+  `status` enum('Follow','Unfollow') DEFAULT 'Unfollow',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`follow_id`),
+  KEY `user_id` (`user_id`),
+  KEY `blog_id` (`blog_id`),
+  CONSTRAINT `follow_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
+  CONSTRAINT `follow_ibfk_2` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`blog_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci</sql_create_table>
+</table>
+<table name="post" view="standard">
+<left>1462</left>
+<top>707</top>
+<width>315</width>
+<height>248</height>
+<sql_create_table>CREATE TABLE `post` (
+  `post_id` int(11) NOT NULL AUTO_INCREMENT,
+  `blog_id` int(11) DEFAULT NULL,
+  `post_title` varchar(200) DEFAULT NULL,
+  `post_summary` text DEFAULT NULL,
+  `post_description` longtext DEFAULT NULL,
+  `featured_image` text DEFAULT NULL,
+  `status` enum('Active','Inactive','Delete') DEFAULT 'Active',
+  `comments_status` enum('Enable','Disable') DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `udpated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`post_id`),
+  KEY `blog_id` (`blog_id`),
+  CONSTRAINT `post_ibfk_1` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`blog_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci</sql_create_table>
+</table>
+<table name="post_category" view="standard">
+<left>1802</left>
+<top>499</top>
+<width>313</width>
+<height>180</height>
+<sql_create_table>CREATE TABLE `post_category` (
+  `post_category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) DEFAULT NULL,
+  `post_id` int(11) DEFAULT NULL,
+  `post_category_status` enum('Active','Inactive') DEFAULT 'Active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`post_category_id`),
+  KEY `categories_id` (`category_id`),
+  KEY `post_id` (`post_id`),
+  CONSTRAINT `post_category_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
+  CONSTRAINT `post_category_ibfk_2` FOREIGN KEY (`post_id`) REFERENCES `post` (`post_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci</sql_create_table>
+</table>
+<table name="post_comment" view="standard">
+<left>778</left>
+<top>676</top>
+<width>316</width>
+<height>197</height>
+<sql_create_table>CREATE TABLE `post_comment` (
+  `post_comment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `post_id` int(11) DEFAULT NULL,
+  `comment` text DEFAULT NULL,
+  `comment_status` enum('Active','Inactive') DEFAULT 'Inactive',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`post_comment_id`),
+  KEY `user_id` (`user_id`),
+  KEY `post_id` (`post_id`),
+  CONSTRAINT `post_comment_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
+  CONSTRAINT `post_comment_ibfk_2` FOREIGN KEY (`post_id`) REFERENCES `post` (`post_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci</sql_create_table>
+</table>
+<table name="role" view="standard">
+<left>35</left>
+<top>430</top>
+<width>269</width>
+<height>129</height>
+<sql_create_table>CREATE TABLE `role` (
+  `role_id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_type` varchar(100) DEFAULT NULL,
+  `role_status` enum('Active','Inactive') DEFAULT NULL,
+  PRIMARY KEY (`role_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci</sql_create_table>
+</table>
+<table name="theme_setting" view="standard">
+<left>38</left>
+<top>205</top>
+<width>313</width>
+<height>197</height>
+<sql_create_table>CREATE TABLE `theme_setting` (
+  `theme_setting_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `setting_key` varchar(100) DEFAULT NULL,
+  `setting_value` varchar(100) DEFAULT NULL,
+  `setting_status` enum('Active','Inactive') DEFAULT 'Active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`theme_setting_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `theme_setting_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci</sql_create_table>
+</table>
+<table name="users" view="standard">
+<left>375</left>
+<top>413</top>
+<width>378</width>
+<height>311</height>
+<sql_create_table>CREATE TABLE `users` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_id` int(11) DEFAULT 2,
+  `first_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `password` text DEFAULT NULL,
+  `gender` enum('Male','Female') DEFAULT NULL,
+  `date_of_birth` date DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `profile_picture` text DEFAULT NULL,
+  `status` enum('Active','Inactive','Delete') DEFAULT 'Inactive',
+  `state` enum('Pending','Approved','Rejected') DEFAULT 'Pending',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `email` (`email`),
+  KEY `role_id` (`role_id`),
+  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>

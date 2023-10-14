@@ -1,0 +1,176 @@
+*{
+    font-family: sans-serif;
+}
+.primary{
+    color: #007d00;
+}
+.background-primary{
+  background-color: #007d00 ;
+}
+.secondary{
+    color: #09cfcf;
+}
+.accent{
+    color: #00b300;
+}
+.text_color{
+    color: #082d12;
+}
+.sidebar-text{
+    color: #082d12;
+}
+
+.sidebar-text:hover{
+    color: #007d00;
+}
+.background_color{
+    color: #ffffff;
+}
+
+.btn-info:hover{
+    color: #082d12;
+}
+.btn-info{
+    background-color: #09cfcf;
+    border-color: #09cfcf;
+    color: #ffffff;
+}
+
+.btn-primary{
+    background-color: #007d00;
+    border-color: #007d00;
+    color: #ffffff;
+}
+.btn-primary:hover{
+    background-color: #00b300;
+    border-color: #00b300;
+    color: #082d12;
+}
+
+
+
+.backgound-primary{
+    background-color: #007d00;
+}
+
+
+.icon_color{
+    color: #082d12;
+    font-size: 18px;
+}
+.icon_color:hover{
+    color: #007d00;
+    font-size: 18px;
+}
+
+.btn-primary-blogger{
+    background-color: #007d00;
+    padding: 10px 50px;
+    border-color: #007d00;
+    color: #ffffff;
+}
+.btn-primary-blogger:hover{
+    background-color: #00b300;
+    border-color: #00b300;
+    color: #082d12;
+}
+.btn-info-blogger{
+    background-color: #09cfcf;
+    padding: 10px 50px;
+    border-color: #09cfcf;
+    color: #ffffff;
+}
+.btn-info-blogger:hover{
+    color: #082d12;
+    border-color: #09cfcf;
+    background-color: #09cfcf;
+}
+
+
+.dash-btn{
+    cursor: pointer;
+}
+
+
+
+/*Loading Spinner*/
+.custom-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.custom-modal-dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.custom-modal-body {
+  text-align: center;
+}
+
+.custom-spinner {
+  display: inline-block;
+  width: 4rem;
+  height: 4rem;
+}
+
+
+/*Icon-size*/
+
+
+#icon::before {
+    content: "";
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-size: cover;
+    margin-right: 10px;
+}
+
+
+#icon[href$=".docx"]::before {
+    background-image: url('../images/word.png');
+}
+
+#icon[href$=".xlsx"]::before {
+    background-image: url('../images/excel.png');
+}
+
+#icon[href$=".zip"]::before {
+    background-image: url('../images/zip.png');
+}
+
+#icon[href$=".rar"]::before {
+    background-image: url('../images/zip.png');
+}
+
+#icon[href$=".ppt"]::before {
+    background-image: url('../images/ppt.png');
+}
+
+#icon[href$=".pdf"]::before {
+    background-image: url('../images/pdf.png');
+}
+
+#icon[href$=".png"]::before {
+    background-image: url('../images/png.png');
+}
+
+#icon[href$=".jpg"]::before {
+    background-image: url('../images/png.png');
+}
+
+#icon[href$=".jpeg"]::before {
+    background-image: url('../images/png.png');
+}
